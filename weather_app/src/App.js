@@ -4,6 +4,7 @@ import axios from 'axios'
 function App() {
 
   const[data,setData]=useState({});
+  const[weatherData,setWeatherData]=useState({});
   const[location,setLocation]=useState("");
 
   useEffect(() => {
@@ -14,7 +15,7 @@ function App() {
   const search=(event)=>{
     if (event.key==='Enter'){
       //GEOLOCation API, takes user inputed city and can give LAT and LONG Cords
-      //const url=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84`;
+      const geoUrl=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
 
       console.log('Location',location);
       console.log('API Key:',apiKey);
@@ -22,19 +23,18 @@ function App() {
       //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
 
       // CURRENT OBJECVTIVE Find out how to link APIs. GET LAT/LON Values and INSERT into The URL and Get New data for it 
-      const url=`https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=372a504004e3c3442e0ae124aa141b84`
+      const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=372a504004e3c3442e0ae124aa141b84`
 
-    
-    
-    
-      
-      
-      axios.get(url).then(response=>{
+      axios.get(geoUrl).then(response=>{
         setData(response.data);
         console.log('Response:',response.data)
-        
       })
-      console.log('URL:',url);
+
+      axios.get(weatherUrl).then(response=>{
+        setWeatherData(response.data);
+        console.log('Response:',response.data)
+      })
+      
       
     }
   }
@@ -52,7 +52,7 @@ function App() {
       <div className="Container"> 
         <div className='Upper'>
           <div className='City'>
-            <p>{data.name}</p>
+            <p>{weatherData.name}</p>
           </div>
           <div className="Temperature">
             <h1>60F</h1>
