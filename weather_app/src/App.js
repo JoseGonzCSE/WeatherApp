@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios"
+import axios from 'axios'
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
 
   const search=(event)=>{
     if (event.key==='Enter'){
-      const url="http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84";
+      const url=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84`;
 
       console.log('Location',location);
       console.log('API Key:',apiKey);
@@ -25,7 +25,7 @@ function App() {
     
       
       
-      axios.get(url).then((response)=>{
+      axios.get(url).then(response=>{
         setData(response.data);
         console.log('Response:',response.data)
         
