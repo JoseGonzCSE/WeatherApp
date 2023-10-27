@@ -13,15 +13,19 @@ function App() {
 
   const search=(event)=>{
     if (event.key==='Enter'){
-      const url=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84`;
+      //GEOLOCation API, takes user inputed city and can give LAT and LONG Cords
+      //const url=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84`;
 
       console.log('Location',location);
       console.log('API Key:',apiKey);
 
-      
+      //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
 
-    //const url='https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}';
-    //const url="http://api.openweathermap.org/geo/1.0/direct?q=$"+location+"&limit=1&appid=372a504004e3c3442e0ae124aa141b84";
+      // CURRENT OBJECVTIVE Find out how to link APIs. GET LAT/LON Values and INSERT into The URL and Get New data for it 
+      const url=`https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=372a504004e3c3442e0ae124aa141b84`
+
+    
+    
     
       
       
