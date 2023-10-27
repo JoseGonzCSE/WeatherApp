@@ -31,7 +31,7 @@ function App() {
         //setData(response.data);
         console.log('Response:',response.data)
 
-        const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=372a504004e3c3442e0ae124aa141b84`
+        const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=372a504004e3c3442e0ae124aa141b84`
         axios.get(weatherUrl).then(weatherResponse=>{
           setWeatherData(weatherResponse.data);
           console.log('Weather Response:',weatherResponse.data)
@@ -66,27 +66,29 @@ function App() {
             <p>{weatherData.name}</p>
           </div>
           <div className="Temperature">
-            <h1>60F</h1>
+            {weatherData.main ? <h1>{weatherData.main.temp}°C</h1>:null }
           </div>
           <div className="Details">
-            <p>Cloudy</p>
+            {weatherData.main ? <p>{weatherData.weather[0].main}</p>:null}
           </div>
-        </div>
-
-        <div className='Lower'>
-          <div className="PerceptiveTemperature">
-            <p>Feels Like</p>
-            <p className='Bold'>65F</p>
+        </div>        
+        
+        {weatherData.name !=undefined &&
+          <div className='Lower'>
+            <div className="PerceptiveTemperature">
+                <p>Feels Like</p>
+                {weatherData.main ? <p className='Bold'>{weatherData.main.feels_like}°C</p>:null}
+            </div>
+            <div className="Humidity">
+              <p>Humidity</p>
+              {weatherData.main ? <p className='Bold'>{weatherData.main.humidity}%</p>:null}
+            </div>
+            <div className="Wind">
+              <p>Wind Speed</p>
+              {weatherData.main ? <p className='Bold'>{weatherData.wind.speed} m/s</p>:null}
+            </div>
           </div>
-          <div className="Humidity">
-            <p>Humidity</p>
-            <p className='Bold'>20%</p>
-          </div>
-          <div className="Wind">
-            <p>Wind Speed</p>
-            <p className='Bold'>12 MPH</p>
-          </div>
-        </div>
+        }
       </div>
     </div>
   );
