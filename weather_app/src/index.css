@@ -15,6 +15,19 @@
   color: rgb(255, 246, 242);
 }
 
+.Search{
+  text-align: center; 
+  padding: 1rem;
+}
+::placeholder{
+  color: rgb(110, 110, 110);
+}
+input{
+  border-radius: 15px;
+  padding: 4px 10px;
+  border: 1px;
+  background-color: rgba(255, 255, 255, 0.7); 
+}
 .Upper{
   width: 100%;
   margin: 1rem auto;

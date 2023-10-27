@@ -1,16 +1,54 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from "axios"
 
 function App() {
-  
-  const url='https://api.openweathermap.org/data/2.5/weather?q=London&appid=372a504004e3c3442e0ae124aa141b84'
-  
+
+  const[data,setData]=useState({});
+  const[location,setLocation]=useState("");
+
+  useEffect(() => {
+    console.log('Data:', data);
+  }, [data]);
+  const apiKey='372a504004e3c3442e0ae124aa141b84';
+
+  const search=(event)=>{
+    if (event.key==='Enter'){
+      const url="http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=372a504004e3c3442e0ae124aa141b84";
+
+      console.log('Location',location);
+      console.log('API Key:',apiKey);
+
+      
+
+    //const url='https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}';
+    //const url="http://api.openweathermap.org/geo/1.0/direct?q=$"+location+"&limit=1&appid=372a504004e3c3442e0ae124aa141b84";
+    
+      
+      
+      axios.get(url).then((response)=>{
+        setData(response.data);
+        console.log('Response:',response.data)
+        
+      })
+      console.log('URL:',url);
+      
+    }
+  }
+
   return (
     <div className="App">
+      <div className='Search'>
+        <input 
+        value={location}
+        onChange={event =>setLocation(event.target.value)}
+        onKeyPress={search}
+        placeholder='Enter a City'
+        type="text"/>
+      </div>
       <div className="Container"> 
         <div className='Upper'>
           <div className='City'>
-            <p>London</p>
+            <p>{data.name}</p>
           </div>
           <div className="Temperature">
             <h1>60F</h1>
@@ -21,7 +59,7 @@ function App() {
         </div>
 
         <div className='Lower'>
-          <div clasName="PerceptiveTemperature">
+          <div className="PerceptiveTemperature">
             <p>Feels Like</p>
             <p className='Bold'>65F</p>
           </div>
@@ -29,7 +67,7 @@ function App() {
             <p>Humidity</p>
             <p className='Bold'>20%</p>
           </div>
-          <div clasName="Wind">
+          <div className="Wind">
             <p>Wind Speed</p>
             <p className='Bold'>12 MPH</p>
           </div>
