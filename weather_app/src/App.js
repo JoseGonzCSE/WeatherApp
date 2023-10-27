@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import axios from 'axios'
 
 function App() {
@@ -6,10 +6,6 @@ function App() {
   const[data,setData]=useState({});
   const[weatherData,setWeatherData]=useState({});
   const[location,setLocation]=useState("");
-
-  useEffect(() => {
-    console.log('Data:', data);
-  }, [data]);
   const apiKey='372a504004e3c3442e0ae124aa141b84';
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,23 +13,18 @@ function App() {
     if (event.key==='Enter'){
       //GEOLOCation API, takes user inputed city and can give LAT and LONG Cords
       const geoUrl=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
-
-      console.log('Location',location);
-      console.log('API Key:',apiKey);
-
-      //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
-
-      // CURRENT OBJECVTIVE Find out how to link APIs. GET LAT/LON Values and INSERT into The URL and Get New data for it 
+      // CURRENT OBJECVTIVE Add dynamic Weather ICon, Bonus if its a bit animated 
+      // CSS Animation time! 
       
 
       axios.get(geoUrl).then(response=>{
         const{lat,lon}=response.data[0]
-        //setData(response.data);
-        console.log('Response:',response.data)
-
+      //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
         const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=372a504004e3c3442e0ae124aa141b84`
+       
         axios.get(weatherUrl).then(weatherResponse=>{
           setWeatherData(weatherResponse.data);
+          //delete when done
           console.log('Weather Response:',weatherResponse.data)
         })
         .catch((weatherError) => {
@@ -57,7 +48,6 @@ function App() {
         onKeyPress={search}
         placeholder='Enter a City'
         type="text"/>
-        
       </div>
       {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
       <div className="Container"> 
@@ -72,8 +62,8 @@ function App() {
             {weatherData.main ? <p>{weatherData.weather[0].main}</p>:null}
           </div>
         </div>        
-        
-        {weatherData.name !=undefined &&
+
+        {weatherData.name !==undefined &&
           <div className='Lower'>
             <div className="PerceptiveTemperature">
                 <p>Feels Like</p>
