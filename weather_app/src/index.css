@@ -79,6 +79,16 @@ body {
   margin:auto;
   padding:0 1 rem;
 }
+.ErrorMessage {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  background-color: #ff7f7f; 
+  color: white; 
+  padding: 10px; 
+  border-radius: 5px; 
+  margin-top: 10px; 
+}
 
 p{
   font-size: 2rem ;

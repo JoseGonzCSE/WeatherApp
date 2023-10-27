@@ -11,6 +11,7 @@ function App() {
     console.log('Data:', data);
   }, [data]);
   const apiKey='372a504004e3c3442e0ae124aa141b84';
+  const [errorMessage, setErrorMessage] = useState('');
 
   const search=(event)=>{
     if (event.key==='Enter'){
@@ -23,19 +24,27 @@ function App() {
       //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
 
       // CURRENT OBJECVTIVE Find out how to link APIs. GET LAT/LON Values and INSERT into The URL and Get New data for it 
-      const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=372a504004e3c3442e0ae124aa141b84`
+      
 
       axios.get(geoUrl).then(response=>{
-        setData(response.data);
+        const{lat,lon}=response.data[0]
+        //setData(response.data);
         console.log('Response:',response.data)
-      })
 
-      axios.get(weatherUrl).then(response=>{
-        setWeatherData(response.data);
-        console.log('Response:',response.data)
+        const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=372a504004e3c3442e0ae124aa141b84`
+        axios.get(weatherUrl).then(weatherResponse=>{
+          setWeatherData(weatherResponse.data);
+          console.log('Weather Response:',weatherResponse.data)
+        })
+        .catch((weatherError) => {
+          console.error('Weather API Error:', weatherError);
+          setErrorMessage('Please input a valid city name.');
+        });
       })
-      
-      
+      .catch((geoError) => {
+        console.error('Geolocation API Error:', geoError);
+        setErrorMessage('Please input a valid city name.');
+      });
     }
   }
 
@@ -48,7 +57,9 @@ function App() {
         onKeyPress={search}
         placeholder='Enter a City'
         type="text"/>
+        
       </div>
+      {errorMessage && <div className="ErrorMessage">{errorMessage}</div>}
       <div className="Container"> 
         <div className='Upper'>
           <div className='City'>
