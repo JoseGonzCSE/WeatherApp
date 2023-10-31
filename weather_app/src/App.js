@@ -26,6 +26,7 @@ function App() {
           setWeatherData(weatherResponse.data);
           //delete when done
           console.log('Weather Response:',weatherResponse.data)
+          setErrorMessage('')
         })
         .catch((weatherError) => {
           console.error('Weather API Error:', weatherError);
@@ -54,28 +55,32 @@ function App() {
         <div className='Upper'>
           <div className='City'>
             <p>{weatherData.name}</p>
+            
           </div>
           <div className="Temperature">
-            {weatherData.main ? <h1>{weatherData.main.temp}°C</h1>:null }
+            {weatherData.main ? <h1>{weatherData.main.temp.toFixed()}°C</h1>:null }
+            <div className="WeatherIcon">
+              {weatherData.main ? <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}></img>:null}
+            </div>
+            
           </div>
           <div className="Details">
             {weatherData.main ? <p>{weatherData.weather[0].main}</p>:null}
           </div>
         </div>        
-
         {weatherData.name !==undefined &&
           <div className='Lower'>
             <div className="PerceptiveTemperature">
                 <p>Feels Like</p>
-                {weatherData.main ? <p className='Bold'>{weatherData.main.feels_like}°C</p>:null}
+                {weatherData.main ? <p className='Bold'>{weatherData.main.feels_like.toFixed()}°C</p>:null}
             </div>
             <div className="Humidity">
               <p>Humidity</p>
-              {weatherData.main ? <p className='Bold'>{weatherData.main.humidity}%</p>:null}
+              {weatherData.main ? <p className='Bold'>{weatherData.main.humidity.toFixed()}%</p>:null}
             </div>
             <div className="Wind">
               <p>Wind Speed</p>
-              {weatherData.main ? <p className='Bold'>{weatherData.wind.speed} m/s</p>:null}
+              {weatherData.main ? <p className='Bold'>{weatherData.wind.speed.toFixed()} m/s</p>:null}
             </div>
           </div>
         }
