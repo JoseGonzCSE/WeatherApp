@@ -13,19 +13,12 @@ function App() {
     if (event.key==='Enter'){
       //GEOLOCation API, takes user inputed city and can give LAT and LONG Cords
       const geoUrl=`http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${apiKey}`;
-      // CURRENT OBJECVTIVE Add dynamic Weather ICon, Bonus if its a bit animated 
-      // CSS Animation time! 
-      
-
       axios.get(geoUrl).then(response=>{
         const{lat,lon}=response.data[0]
       //ACtual Weather API, Needs Lat and Long values to get WEather instead of city name
         const weatherUrl=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=372a504004e3c3442e0ae124aa141b84`
-       
         axios.get(weatherUrl).then(weatherResponse=>{
           setWeatherData(weatherResponse.data);
-          //delete when done
-          console.log('Weather Response:',weatherResponse.data)
           setErrorMessage('')
         })
         .catch((weatherError) => {
