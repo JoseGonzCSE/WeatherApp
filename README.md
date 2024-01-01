@@ -29,5 +29,10 @@ A weather application that allows you to check the current weather conditions fo
 <li>OpenWeatherMap API: Provides real-time weather data</li> 
  
 </ul>
- 
+
+![Sf](https://github.com/JoseGonzCSE/WeatherApp/assets/116050946/b5548615-e878-4f2f-b509-f34911be5399)
+
+ ![London](https://github.com/JoseGonzCSE/WeatherApp/assets/116050946/6863ebe8-bff7-4173-88c3-f783c42e4203)
+
+![Invalid](https://github.com/JoseGonzCSE/WeatherApp/assets/116050946/aa29bcce-1651-4c10-931c-934f78ef7773)
 
